@@ -1,0 +1,181 @@
+var app = angular.module('myApp', []);
+
+
+app.service("cartService", function(){
+
+    var map = new Map();
+    var cartItems=new Map();
+    countOfItems=[];
+    isShowDetails=[];
+    isShowOthers=[];
+
+    this.getItems=function()
+    {
+       return items = [{
+            image : 'images/im1.jpeg', pid : '1', title : 'CARTA', price : 13,
+            content : "The U.S. construction industry: labor shortages and implications."
+         },
+         {
+            image : 'images/im2.jpeg', pid : '2', title : 'OFF-WHITE X”', price : 23,
+            content : "Project management within the construction United States."
+         },
+         {
+            image : 'images/im3.jpeg', pid : '3', title : 'OLLIE',price : 34,
+            content : "The modular construction of the purpose built apartments."
+         },
+         {
+            image : 'images/im4.jpeg', pid : '4', title : 'DAMN',price : 32,
+            content : "The shortage of the constructions skills and the alternatives of recruitment."
+         },
+        //  {
+        //     image : 'images/im5.jpeg', pid : '5', title : 'BODEGA',price : 51,
+        //     content : "Barriers to construction contractors that want to implement sustainable construction."
+        //  },
+        //  {
+        //     image : 'images/im6.jpeg', pid : '6', title : 'JUICERO',price : 57,
+        //     content : "The construction industry: the adoption and development of safety culture."
+        // }
+        //  {
+        //     image : 'images/im7.jpeg', pid : '7', title : 'BRANDLESS',price : 41,
+        //     content : "Direct property and its role within investment funds"},
+        //  {
+        //     image : 'images/im8.jpeg', pid : '8', title : 'Wizard of Oz Dorothy',price : 47,
+        //     content : "Waste management in the construction industry."}
+        ];
+    }
+
+    // add the item in the list
+    this.addToCart=function(item){
+        
+        var key=item.pid;
+        if(cartItems.has(key)==false){
+
+
+            //alert('bdhbbajhwd');
+            cartItems.set(key,[item,1,true]);
+            console.log(cartItems)
+
+            //alert(key);
+            // // cartItems.push([item,1,true]);
+            // var infos=cartItems.get(key);
+            // cartItems.delete(key);
+            // //cartItems.set(key,[infos[0],infos[1]+1,infos[2]]);
+            // var tt=infos[1]+1;
+            // //cartItems[key]=[infos[0],tt,infos[2]];
+            // cartItems.set(key,[infos[0],infos[1]+1,infos[2]]);
+
+            // alert(index);
+            // alert(cartItems[index][0].title);
+            // alert(cartItems[index][1]);
+        // countOfItems.push(1);
+        // isShowDetails.push(true);
+        // isShowOthers.push(false);
+        }else
+        {
+            //var key = cartItems.indexOf(item);
+            // for(var [key,value] of cartItems)
+            //     alert(key);
+            //alert(key);
+            this.plus(key);
+        }
+    }
+    // delete the item from list
+    this.removeFromCart=function(key){
+        cartItems.delete(key);
+        // console.log(item);
+        // var index = cartItems.indexOf(item);
+        // cartItems.splice(index,1);
+//         cartI
+//         // cartItems.splice(index,1);
+      
+//       cartI  // countOfItems.splice(index,1);
+   
+//    cartI     // isShowDetails.splice(index,1);
+  
+//   cartI      // isShowOthers.splice(index,1);
+    }
+    
+    // increment the count of item
+    this.plus = function (key) {
+
+        // alert('heawed');
+        var values=cartItems.get(key);
+        var x=values[1];
+        // alert(x);
+        // //alert(x);
+        if(x < 10){
+            cartItems.delete(key);
+            cartItems.set(key,[values[0],values[1]+1,values[2]]);
+        }else
+            alert('max limit exceeded');
+    }
+    // decrement the count of item
+    this.min = function (key) {
+
+        var values=cartItems.get(key);
+        var x=values[1];
+        //var x=countOfItems[i][1];
+        if(x >1){
+            cartItems.delete(key);
+            cartItems.set(key,[values[0],values[1]-1,values[2]]);
+        }
+    }
+
+    //calculate total cost
+    this.getTotalCost=function(){
+
+        var x=0;
+        for (var value of cartItems.values()) {
+            x=x+(value[0].price*value[1]);
+          }
+        // for(var i=0; i<cartItems.length ;i++){
+        //     x=x+(cartItems[i][0].price*cartItems[i][1]);
+        // }
+        return x;
+    }
+    
+    this.setTrue=function(i){
+
+        var values=cartItems.get(key);
+        cartItems.delete(key);
+        cartItems.set(key,[values[0],values[1],true]);
+
+
+        //alert("set true");
+        // cartItems[i][2]=true;
+        // isShowDetails[i]=true;
+        // isShowOthers[i]=false;
+    }
+
+    this.setFalse=function(i){
+
+        var values=cartItems.get(key);
+        cartItems.delete(key);
+        cartItems.set(key,[values[0],values[1],false]);
+
+        // cartItems[i][2]=true;
+        // isShowDetails[i]=false;
+        // isShowOthers[i]=true;
+    }
+
+    this.getCartItems=function(){
+
+        return cartItems;
+    }
+
+    // this.getCountItemsList=function(){
+
+    //     return countOfItems;
+    // }
+
+    // this.getShowDetailsList=function(){
+
+    //     return isShowDetails;
+    // }
+
+    // this.getShowOthersList=function(){
+
+    //     return isShowOthers;
+    // }
+});
+

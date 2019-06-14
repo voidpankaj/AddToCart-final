@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="style.css">
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+	<script src="app.js"></script>
+	<script src="controller.js"></script>
+	<script src="directive.js"></script>
+	<script src="services.js"></script>
+	<script src="state.js"></script>
+	<script src="factory.js"></script>
+</head>
+
+<body class="body1" ng-app="myApp" ng-controller="myCtrl">
+
+
+	<div id="header">
+		<input class="inputClass" style="background-image: url('images/searchingicon.png');" type="text" ng-model="search" placeholder="Search here..."></input>
+		<!-- <h1 style="color:wheat; text-align: center; text-decoration-style: solid; flex-basis: 100%">Products</h1> -->
+		<button class="fas fa-shopping-cart btn btn-warning" style="float:right; margin:10px"
+			ng-click="showCart()"></button>
+	</div>
+
+	<div class="container main_con">
+		<div class="row justify-content-around">
+			<!-- <div class="col-sm-4"> -->
+			<div class="prodDiv " ng-repeat="data in items | filter :search">
+
+				<img class="img" src={{data.image}}>
+				<div align="center">
+					<p><b>{{data.title}}</b></p>
+					<p class="card-text">{{data.content}}</p>
+					<p>Price : &#36; {{data.price}}</p>
+					<button type="button" class="btn btn-outline-primary" ng-click=addToCart(data.pid)>
+						Add to Cart
+					</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+	<!-- <h1>{{search}}</h1> -->
+
+	<div class="sideContainer">
+		<div id="mySidenav">
+			<div class="sidenav">
+				<div class="cartHead">
+					<b>Your shopping cart</b>
+					<a class="closebtn" style="color: white;" ng-click="closeCart()">&times;</a>
+				</div>
+
+				<div class="row cartItems justify-content-around " style="margin-left: 10px;" ng-repeat="item in cartItems"
+					ng-mouseover="hideDetails(item.pid)" ng-mouseleave="showDetails(item.pid)">
+					<div class="col-lg-3 item"><img src={{item.image}} class="img-thumbnail"></div>
+					<div class="col-lg-9" ng-if="item.isShowDetails" style="margin-top: 13px">
+						<div class="row">
+							<div class="col-lg-8 item" align="center">{{item.title}}</div>
+							<div class="col-lg-3 item">&#36; {{item.price}}&nbsp; ({{item.quantity}})</div>
+						</div>
+					</div>
+					<div class="col-lg-9" ng-if="!item.isShowDetails" style="margin-top: 8px">
+						<div class="row">
+							<div class="col-lg-8 sym " align="center">
+								<button type="button" class="btn btn-secondary" ng-click=min(item.pid)>
+									-</button>
+								{{item.quantity}}
+								<button type="button" class="btn btn-secondary" ng-click=plus(item.pid)>
+									+</button>
+							</div>
+							<div class="col-lg-2 item remove" style="margin-top:8px">
+								<button type="button" class="btn  btn-outline-danger" ng-click=removeFromCart(item.pid)>
+									X
+								</button>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div ng-show="cartItems.length" align="center">
+					<hr size="10">
+				</div>
+				<div ng-show="cartItems.length" align="right" style="padding: 15px">
+					<h4>Total : ${{getTotalCost()}}</h4>
+				</div>
+				<div ng-show=(cartItems.length) align="center">
+					<button type="button" class="btn btn-outline-primary">
+						Proceed To Checkout
+					</button>
+				</div>
+				<!-- when cart is empty -->
+				<div ng-show=!(cartItems.length) align="center">
+					<br>
+					Your cart is empty!!
+					<br><br>
+					<button type="button" class="btn btn-outline-primary" ng-click=closeCart()>
+						Continue Shopping
+					</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+
+</html>

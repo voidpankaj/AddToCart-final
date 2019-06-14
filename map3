@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="style.css">
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular-route.js"></script>
+	<script src="app.js"></script>
+	<script src="controller.js"></script>
+	<script src="directive.js"></script>
+	<script src="services.js"></script>
+	<script src="state.js"></script>
+	<script src="factory.js"></script>
+</head>
+
+<body class="body1" ng-app="myApp" ng-controller="myCtrl">
+
+
+	<div id="header">
+		<h1 style="color:wheat; text-align: center; text-decoration-style: solid; flex-basis: 100%">Products</h1>
+		<button class="fas fa-shopping-cart btn btn-warning" style="float:right; margin:10px"
+			ng-click="showCart()"></button>
+	</div>
+
+	<div class="container main_con">
+		<div class="row justify-content-around">
+			<!-- <div class="col-sm-4"> -->
+			<div class="prodDiv " ng-repeat="data in items">
+
+				<img class="img" src={{data.image}}>
+				<div align="center">
+					<p><b>{{data.title}}</b></p>
+					<p class="card-text">{{data.content}}</p>
+					<p>Price : &#36; {{data.price}}</p>
+					<button type="button" class="btn btn-outline-primary" ng-click=addToCart(data)>
+						Add to Cart
+					</button>
+				</div>
+			</div>
+
+		</div>
+	</div>
+
+	<!-- try -->
+	<ul>
+		<li ng-repeat="x in cartItems">
+			
+		{{x}} </li>
+	</ul>
+	<ul>
+		<li ng-show=cartItems.size>
+			{{cartItems}
+		</li>
+	</ul>
+	
+	<!-- <ul>
+		<li ng-repeat="x in {1:['1': 'asas']}">
+			<h1>{{x}}</h1>
+		</li>
+	</ul> -->
+</body>
+
+</html>

@@ -1,0 +1,75 @@
+app.controller('myCtrl', function ($scope,cartService) {
+
+    $scope.cartItems=new Map();
+    $scope.countOfItems=[];
+    $scope.isShowDetails=[];
+    $scope.items = cartService.getItems();
+    // add the item in the list
+    $scope.addToCart=function(item){
+
+        cartService.addToCart(item);
+        $scope.cartItems=cartService.getCartItems();
+        // for(var [key,value] of $scope.cartItems )
+        //     alert(key); 
+        //$scope.cartItems=cartService.getCartItems();
+        // $scope.countOfItems=cartService.getCountItemsList();
+        // $scope.isShowDetails=cartService.getShowDetailsList();
+        // $scope.showCart();
+    }
+    // delete the item from list
+    $scope.removeFromCart=function(item){
+       
+        cartService.remove1FromCart(item);
+        $scope.cartItems=cartService.getCartItems();
+        // $scope.countOfItems=cartService.getCountItemsList();
+        // $scope.isShowDetails=cartService.getShowDetailsList();
+    }
+    
+    // increment the count of item
+    $scope.plus = function (i) {
+
+        cartService.plus(i);
+        $scope.cartItems=cartService.getCartItems();
+        // $scope.countOfItems=cartService.getCountItemsList();
+    }
+    // decrement the count of item
+    $scope.min = function (i) {
+        
+        cartService.min(i);
+        $scope.cartItems=cartService.getCartItems();
+        // $scope.countOfItems=cartService.getCountItemsList();
+    }
+
+    //calculate total cost
+    $scope.getTotalCost=function(){
+
+        return cartService.getTotalCost();
+    }
+   
+    $scope.setTrue=function(i){
+
+        cartService.setTrue(i);
+        $scope.cartItems=cartService.getCartItems();
+        // $scope.isShowDetails=cartService.getShowDetailsList();
+    }
+
+    $scope.setFalse=function(i){
+
+        cartService.setFalse(i);
+        $scope.cartItems=cartService.getCartItems();
+        // $scope.isShowDetails=cartService.getShowDetailsList();
+    }
+     // open the card sidebar
+     $scope.showCart=function() {
+    
+        // $scope.cartFlag=true;
+        document.getElementById("mySidenav").style.right = "0px";
+        document.getElementsByClassName("sideContainer")[0].classList.add("side_hidden");
+        
+    }
+    // close the card sidebar
+    $scope.closeCart=function() {
+        document.getElementById("mySidenav").style.right = "-500px";
+        document.getElementsByClassName("sideContainer")[0].classList.remove("side_hidden");       
+    }
+});
